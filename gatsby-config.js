@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/lisarnjs.github.io",
   siteMetadata: {
     title: `Gatsby Starter Blog`,
     author: {
