@@ -18,6 +18,9 @@ jobs:
         run: |
           git config --global user.name "lisarnjs"
           git config --global user.email "kwonenseo@gmail.com"
+          git remote set-url origin https://lisarnjsGH_TOKEN@github.com/lisarnjs.github.io.git
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run build script
         run: |
           npm install
