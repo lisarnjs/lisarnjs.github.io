@@ -1,0 +1,76 @@
+---
+title: Valid Anagram with Javascript
+date: 2023-08-31
+description: neetcode algorithm valid anagram answer in javascript - 자바스크립트로 배열에서 중복값 찾기 알고리즘 문제 풀이
+tags:
+  - Algorithm
+  - Array & Hashing
+---
+
+## 문제 설명
+
+[문제 보러가기](https://leetcode.com/problems/valid-anagram/)
+
+주어진 문자열 s와 t가 같은 문자들로 구성되어 있는지 검사하는 문제이다.
+
+s와 t가 같은 문자들로 구성되어 있으면 true, 그렇지 않으면 false를 return한다.
+
+## Example
+
+```
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Input: s = "rat", t = "car"
+Output: false
+
+```
+
+## 풀이
+
+```js
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+
+// 내 풀이 1
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false;
+  //문자열을 배열로 만들고
+  let sArr = [...s];
+  let tArr = [...t];
+  //알파벳 순서대로 정렬하고
+  sArr.sort();
+  tArr.sort();
+  //두 배열이 같은지 확인한다
+  return sArr.every((s, i) => s === tArr[i]);
+};
+
+// 다른 풀이 1
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+  //알파벳만큼 배열을 만들고 0으로 채워줌
+  var freq = new Array(26).fill(0);
+  //s 길이만큼 돌면서
+  for (var i = 0; i < s.length; i++) {
+    //해당 알파벳 인덱스에 ++
+    freq[s.charCodeAt(i) - "a".charCodeAt(0)]++;
+    //해당 알파벳 인덱스에 --
+    freq[t.charCodeAt(i) - "a".charCodeAt(0)]--;
+    //같은 문자가 같은 개수로 들어있을테니 s와 t가 같다면 무조건 0일 것임
+  }
+
+  for (var i = 0; i < freq.length; i++) {
+    //만약 0이 아닌 수가 나왔다면 그 문자가 없거나 개수가 다르다는 뜻이므로 false
+    if (freq[i] !== 0) {
+      return false;
+    }
+  }
+
+  return true;
+};
+```
