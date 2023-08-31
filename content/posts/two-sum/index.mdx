@@ -1,0 +1,62 @@
+---
+title: Two Sum With Javascript
+date: 2023-09-01
+description: neetcode algorithm "two sum" answer in javascript - 자바스크립트 두개의 합 알고리즘 문제 풀이
+tags:
+  - Algorithm
+  - Array & Hashing
+---
+
+## 문제 설명
+
+[문제 보러가기](https://leetcode.com/problems/two-sum/)
+
+nums배열과 정수target이 주어지고, nums배열에서 인접한 두 수의 합이 target일 경우 두 수의 index를 배열로 반환하는 문제이다.
+
+## Example
+
+```
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
+```
+
+## 풀이
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+
+// 내 풀이 1
+var twoSum = function (nums, target) {
+  let answer = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) answer.push(i, j);
+    }
+  }
+  return answer;
+};
+
+// 내 풀이 2
+var twoSum = function (nums, target) {
+  let hash = {};
+
+  for (let i = 0; i < nums.length; i++) {
+    const needNum = target - nums[i];
+    if (hash[needNum] !== undefined) return [hash[needNum], i];
+    hash[nums[i]] = i;
+  }
+
+  return [];
+};
+```
