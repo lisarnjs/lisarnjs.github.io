@@ -1,0 +1,47 @@
+---
+title: Group Anagrams In Javascript
+date: 2023-09-02
+description: neetcode algorithm "group anagrams" answer in javascript - leetcode 자바스크립트 알고리즘 문제 풀이
+tags:
+  - Algorithm
+  - Array & Hashing
+---
+
+## 문제 설명
+
+[문제 보러가기](https://leetcode.com/problems/group-anagrams/)
+
+문쟈열로 이루어진 배열 strs가 주어지고, anagram인 것끼리 배열로 묶어야 하는 문제이다.
+
+## Example
+
+```
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Input: strs = [""]
+Output: [[""]]
+
+Input: strs = ["a"]
+Output: [["a"]]
+```
+
+## 풀이
+
+```js
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+  let map = {};
+
+  for (let str of strs) {
+    let s = str.split("").sort().join("");
+    if (!map[s]) map[s] = [];
+    map[s].push(str);
+  }
+
+  return Object.values(map);
+};
+```
