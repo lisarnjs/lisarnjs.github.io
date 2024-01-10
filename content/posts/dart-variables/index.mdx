@@ -1,0 +1,122 @@
+---
+title: [Dart] Variables
+date: 2024-01-07
+description: studied dart variables
+tags:
+  - Dart
+---
+
+## var
+
+- 함수 / 메소드 내부에 지역 변수를 선언할 때 사용
+- class에서 변수 / property 선언할 때 사용
+- var를 사용해도 dart 컴파일러는 해당 변수의 타입을 자동으로 파악함
+
+```Dart title=example
+void main() {
+	var name = 'lisa'; // dart 컴파일러는 name이 string인 것을 바로 안다!
+	name = 1; // 그래서 요렇게 변경하려고 하면 에러가 나는 것!
+	name = 'mandoo'; // 변수 값을 변경해주려면 같은 타입으로!
+
+  // 타입을 명시해줘도 상관 없음
+  String name = 'lisa';
+  int age = 20;
+  double xp = 15.999;
+  bool exammple = true;
+  etc...
+}
+```
+
+## dynamic
+
+- 추천하는 방식은 아니지만 필요할 땐 유용하게 써야함
+- 단, 정말 정말 필요할 때만 사용하기
+
+```Dart title=example
+void main() {
+	var name; // dynamic type
+	name = 'lisa'; // ok
+	name = 1 // ok
+	name = true // ok
+
+	dynamic name; // 이렇게 써도 됨
+	if(name is String) {
+		// 이러면 컴파일러는 name이 string이라는 것을 안다
+    // 즉, name이 String타입일 때만 실행
+	}
+	if(name is int){
+		// 이러면 컴파일러는 name이 int라는 것을 안다
+    // 즉, name이 int타입일 때만 실행
+	}
+}
+```
+
+## null safety ⭐️⭐️⭐️
+
+- 변수 및 데이터가 null이 될 수 있음을 명시하는 것
+- dart 변수는 기본적으로 null이 될 수 없음이 전제되어 있음
+- null safety가 없다면?
+  - 런타임 에러(사용자가 앱을 사용하던 중에 발생하는 에러) 발생
+
+```Dart title=example
+void main() {
+	bool isEmpty(String string) => string.length == 0;
+	isEmpty(null); // ERROR: NoSuchMethodError => string이 들어가야하는 자리에 null값이 들어가서 에러남
+
+	// 변수가 string | null 둘다 될 수 있다면
+	String? name = 'lisa';
+	name = null; // ok
+
+	// null check
+	if(name != null) {
+    // name이 null이 아닐 경우에만 실행
+		name.isNotEmpty;
+	}
+
+	//null check 단축 문법
+	name?.isNotEmpty; //name이 null이 아닐때만 isNotEmpty를 실행함
+}
+```
+
+## final ⭐️⭐️
+
+- can only be set once
+- javascript의 const와 같은 개념
+- 한 번 할당되면 더 이상 변수를 수정할 수 없음
+
+```Dart title=example
+void main() {
+  final name = 'lisa';
+  name = 'mandoo'; // ERROR : name = 'lisa'로 할당되었기 때문에 더 이상 수정할 수 없음
+
+  final String name = 'lisa'; // 이렇게 타입을 명시해줘도 됨
+}
+```
+
+## late ⭐️⭐️
+
+- 초기 데이터 없이 변수를 만들어줌
+- final, var 앞에 붙여줄 수 있는 수식어
+
+```Dart title=example
+void main() {
+  late final String name; // String 타입의 name 변수만 만들어준 상태
+
+  // do something... ex) fetch to api
+
+  name = 'fetched api data'; // ok 변수 값은 나중에 넣어준다
+  name = '12'; // ERROR : final을 사용했기 때문에 재할당은 불가능
+}
+```
+
+## const
+
+- compile-time constant를 만들어줌
+- compile-time에 알고 있는 값
+- dart const != javascript const
+
+```Dart title=example
+void main() {
+  const API_KEY = '1212121';
+}
+```
