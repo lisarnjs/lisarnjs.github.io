@@ -1,0 +1,119 @@
+---
+title: Dart Data Types
+date: 2024-01-08
+description: studied about dart data types
+tags:
+  - Dart
+---
+
+## basic data types
+
+```Dart title=example
+void main() {
+	String name = ''; // String : 문자열을 쓸 수 있는 타입
+	bool alive = true; // bool : true of false
+
+	int age = 12; // int : 정수만 쓸 수 있는 타입
+	double money = 69.99; // double : 소수점을 쓸 수 있는 타입
+
+	// num : 정수 & 소수점 모두 가능 = int, double의 부모 class이기 때문
+	num x = 12;
+	num x = 1.1;
+}
+```
+
+## lists ⭐️⭐️⭐️
+
+```Dart title=example
+void main() {
+	var numbers = [1, 2, 3, 4]; // numbers type = List<int>
+  List<int> numbers = [1, 2, 3, 4]; // 위랑 같은 표현임
+
+  numbers.first; // numbers list의 첫 번째 요소 반환
+  numbers.last;  // numbers list의 마지막 요소 반환
+  ...등등 이 외 다양한 메소드 존재함
+
+  // 리스트 마지막 요소에 콤마(,)를 붙혀주면 자동으로 예쁘게 포맷해준다고 함
+  var numbers = [1, 2, 3, 4,];
+  // 👇🏻like this!
+  var numbers = [
+    1,
+    2,
+    3,
+    4,
+  ];
+
+  // ⭐️collection if 문법
+  var giveMeFive = true;
+  var numbers = [
+    1,
+    2,
+    3,
+    4,
+    if(giveMeFive) 5, // giveMeFive가 true면 리스트에 5를 추가한다는 뜻!
+  ];
+  // 아래와 같이 써도 상관은 없음, but 위에가 더 간단한 방법임
+  if(giveMeFive) {
+    numbers.add(5);
+  }
+
+  // ⭐️String interpolation = text에 변수를 추가하는 방법
+  // 그냥 변수값만 사용할 때 = ex) $변수명
+  // 변수를 게산하려면 => ex) ${변수명 + 2}
+  var name = 'lisa';
+  var age = 10;
+  var greeting = 'Hello $name! I\'m ${age + 2}' // 작은 따옴표 문자열 안에 작은 따옴표 쓰려면 \' 이렇게 써야함
+  print(greeting); // Hello lisa! I'm 12
+
+  // ⭐️collection for 문법
+  var oldFriends = ['lisa', 'mandoo'];
+  var newFriends = [
+    'lewis',
+    'anna',
+    for(var friend in oldFriends) '❤️ $friend',
+  ];
+  // 아래와 같이 써도 상관은 없음, but 위에가 더 간단한 방법임
+  for(var friend in oldFriends) {
+    newFriends.add('❤️ $friend');
+  }
+  print(newFriends); // [lewis, anna, ❤️ lisa, ❤️ mandoo]
+}
+```
+
+## map ⭐️⭐️⭐️
+
+```Dart title=example
+void main() {
+  // key = 전부 String & value = 타입이 다양하기 때문에 Object로 씀 => Map<String, Object>
+	var player = {
+    'name': 'lisa',
+    'xp': 19.99,
+    'superpower': false,
+  };
+
+  // 요런 복잡한 것도 만들 수 있음, but 추천하지는 않는 방식
+  Map<List<int>, bool> player = {
+    [1, 2, 3]: true,
+  };
+  List<Map<String, Object>> player = [
+		{'name': 'lisa', 'xp': 199.99},
+		{'name': 'lisa', 'xp': 199.99},
+	];
+}
+```
+
+## set ⭐️⭐️
+
+- set vs list
+  - set = Javascript Set
+    - set에 속한 모든 아이템들은 유니크
+    - 순서가 있음
+    - 요소가 항상 하나씩만 있어야 될 때 사용
+  - list = Javascript Array
+    - 유니크할 필요 없다면 사용
+
+```Dart title=example
+void main() {
+  var numbers = {1,2,3}; // Set<int>
+}
+```
