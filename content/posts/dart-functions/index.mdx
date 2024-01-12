@@ -1,0 +1,134 @@
+---
+title: Dart Functions
+date: 2024-01-09
+description: studied about dart functions
+tags:
+  - Dart
+---
+
+## defining a function
+
+```Dart title=example
+void main() {
+	print(sayHello('lisa')); // Hello lisa nice to meet u
+	print(plus(1, 2)); // 3
+}
+
+// void() => 아무것도 return을 안함
+void sayHello(String name){
+	print('Hello $name nice to meet u');
+}
+
+// String() => string을 return함
+String sayHello(String name){
+	return 'Hello $name nice to meet u';
+}
+// fat arrow syntax = 곧바로 return할때만 (함수 축약형으로 쓰는법)
+String sayHello(String name) => 'Hello $name nice to meet u';
+
+num plus(num a, num b) => a + b;
+```
+
+## named parameters ⭐️⭐️⭐️
+
+```Dart title=example
+String sayHello(String name, int age, String country){
+	return "Hello $name, you are $age, and u come from $country";
+}
+
+void main() {
+	// 함수가 뭘 표현하는지 모르고 직관적이지 않음
+	print(sayHello('lisa', 20, 'korea'));
+}
+
+// name arguments를 사용해서 직관적으로 바꿔줄거임(얘는 인자 순서는 중요하지 않음)
+// 함수 인자 부분에 {} 추가
+// null일 경우를 대비해서 default value를 설정해주면 됨
+String sayHello({
+	String name = 'anon',
+	int age = 99,
+	String country = 'lala'}){
+	return "Hello $name, you are $age, and u come from $country";
+}
+// default value 설정하고 싶지 않을때는 required를 달아줘서 필수값으로 설정해주면
+// 해당 값이 null인 상태로 호출 시 에러 표출함 (like typescript)
+String sayHello({
+	required String name,
+	required int age,
+	required String country}){
+	return "Hello $name, you are $age, and u come from $country";
+}
+void main() {
+	print(sayHello(
+		age: 20,
+		country: 'korea',
+		name: 'lisa'
+	));
+}
+```
+
+## optional positional parameters ⭐️
+
+```Dart title=example
+String sayHello(
+	String name,
+	int age,
+	[String? country = 'usa'])
+	=> 'Hello $name, u are $age years old from $country';
+
+void main() {
+	sayHello('lisa', 20);
+}
+```
+
+## QQ operator (?? , ??=)
+
+```Dart title=example
+String capitalizeNme(String? name) {
+	if(name !== null) {
+		return name.toUpperCase();
+	}
+	return 'ANON';
+}
+
+String capitalizeNme(String? name) => name != null ? name.toUpperCase() : 'ANON';
+
+String capitalizeNme(String? name) => name?.toUpperCase() ?? 'ANON';
+
+void main() {
+	capitalizeNme('lisa');
+	capitalizeNme(null);
+}
+
+void main() {
+	String? name;
+	name ??= 'lisa'; // ??= : name이 null이라면 lisa라는 값을 할당해줘
+}
+```
+
+## Typedef
+
+```Dart title=example
+typedef ListOfInts = List<int>
+// List를 반대로 뒤집어주는 Function
+List<int> reverseListOfNumbers(List<int> list) {
+	var reversed = list.reversed;
+	return reversed.toList();
+}
+// 같은 자료형끼리 이름을 붙혀줄 수 있음 ts같다
+ListOfInts reverseListOfNumbers(ListOfInts list) {
+	var reversed = list.reversed;
+	return reversed.toList();
+}
+void main() {
+	reverseListOfNumbers([1,2,3]);
+}
+
+// typedef 간단한 data의 alias를 만들때 유용함
+// 아래처럼 객체 구조까지 정확히 표현할 필요 없을때 유용함
+// 객체 구조까지 타입 지정해줄거면 class 사용해야함
+typedef UserInfo = Map<String, String>;
+String sayHi(Map<String, String> userInfo){
+	return 'Hi, ${userInfo['name']}';
+}
+```
