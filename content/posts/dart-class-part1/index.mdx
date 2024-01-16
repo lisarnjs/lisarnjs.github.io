@@ -1,0 +1,42 @@
+---
+title: Dart Class Part1
+date: 2024-01-10
+description: studied about dart class
+tags:
+  - Dart
+---
+
+## class
+
+```Dart title=example
+// class안에서 변수를 정의할 때는 타입을 꼭 지정해줘야함(var 사용nono)
+class Player {
+	String name = 'lisa';
+	// 만약 name을 변경하지 못하게 하고 싶다면? 아래처럼!!
+	final String name = 'lisa';
+
+	int xp = 1500;
+
+	void sayHello(){
+		// this.name = lisa 로 this를 사용해도 정상적으로 작동하지만 권장되지 않음
+		print('Hi my name is $name');
+	}
+
+	// 어쩔 수 없이 this를 사용해야 할 경우
+	// class의 method안에 같은 이름의 변수명을 사용해야 할 때
+	void sayHello(){
+		var name = 'nico';
+		// Hi my name is nico, player name is lisa
+		print('Hi my name is $name, player name is ${this.name}');
+	}
+}
+
+void main() {
+	var player = Player();
+	print(player.name); //lisa
+	player.name = 'lala';
+	print(player.name); //lala
+
+	player.sayHello(); //Hi my name is lisa
+}
+```
